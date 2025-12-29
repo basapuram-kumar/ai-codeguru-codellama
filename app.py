@@ -38,6 +38,7 @@ def generate_response(prompt):
 
 interface=gr.Interface(
     fn=generate_response,
+    title="🤖 AI CodeGuru Chat",
     inputs=gr.Textbox(lines=4, placeholder="Enter your question"),
     outputs=gr.Textbox(lines=10, label="Response",  autoscroll=False)
 )

@@ -12,6 +12,9 @@ history=[]
 def generate_response(prompt):
     history.append(prompt)
     final_prompt="\n".join(history)
+    # Build context from history
+    context = "\n".join(history)
+
 
     data={
         "model": "codeguru",
@@ -25,9 +28,13 @@ def generate_response(prompt):
         response=response.text
         data=json.loads(response)
         actual_response=data["response"]
+        # Add assistant response to history
+        history.append(f"Assistant: {actual_response}")
         return actual_response
     else:
-        print("Error: ",response.text)
+        error_msg = f"Error: {response.text}"
+        print(error_msg)
+        return error_msg
 
 interface=gr.Interface(
     fn=generate_response,
